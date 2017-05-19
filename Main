@@ -1,5 +1,6 @@
 package trabalhoalgoritmos;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class TrabalhoAlgoritmos {
@@ -7,17 +8,24 @@ public class TrabalhoAlgoritmos {
     //Scanner
     public static Scanner ler = new Scanner(System.in);
 
+    //Random
+    public static Random aleatorioNum = new Random();
+
     //VETORES
     static int vectorSize;
     static int[] vector1, vector2;
 
+    //char
+    public static char tecla;
+
     public static void TamanhoVetor() {
+
         //inserir valor do vectorsize
         System.out.println("Inserir quantidade de vetores:");
         vectorSize = ler.nextInt();
         //checar se o vetor tem menos de 10.000 numeros
-        if (vectorSize >= 10000){
-            System.out.println("Insira um valor abaixo de 10.000");
+        if (vectorSize > 10000 || vectorSize < 1) {
+            System.out.println("Insira um valor positivo abaixo de 10.000");
             TamanhoVetor();
         }
         vector1 = new int[vectorSize];
@@ -62,6 +70,8 @@ public class TrabalhoAlgoritmos {
                 printVector();
                 break;
             case 3:
+                editVector();
+                break;
             case 4:
             case 5:
             case 6:
@@ -88,9 +98,21 @@ public class TrabalhoAlgoritmos {
         choice = ler.nextInt();
 
         if (choice == 1) {
+            for (int i = 0; i < vectorSize; i++) {
+                vector1[i] = aleatorioNum.nextInt(3000);
+                System.out.println((i + 1) + "° Vetor 1 " + vector1[i]);
+            }
+            for (int i = 0; i < vectorSize; i++) {
+                vector2[i] = aleatorioNum.nextInt(3000);
+                System.out.println((i + 1) + "°Vetor 2 " + vector2[i]);
+
+            }
+
+            printMenu();
 
         } else if (choice == 2) {
             //preenchimento manual
+            //lembrar de colocar opção para selecionar a posição e editar
             for (int i = 0; i < vectorSize; i++) {
                 System.out.println("Vetor 1 = Inserir " + (i + 1) + "º vetor");
                 vector1[i] = ler.nextInt();
@@ -132,6 +154,31 @@ public class TrabalhoAlgoritmos {
 
     //menuValor == 3
     public static void editVector() {
+        int choice;
+        int pos;
+        System.out.println("Qual vetor você deseja editar?");
+        choice = ler.nextInt();
+        if (choice == 1) {
+            do {
+                System.out.println("escolha uma posição entre: 1 a " + vectorSize);
+                pos = ler.nextInt();
+                
+                if (pos > vectorSize || pos < 1) {
+                    System.out.println("Erro, valor inválido");
+                    
+                } 
+                /*else {
+                    do{
+                    System.out.println("inserir valor para o vetor na posição " + pos + " =" + (vector1[pos-1]));
+                    vector1[pos] = ler.nextInt()-1;
+                    if (vector1[pos] > 3000 || vector1[pos] < 1) {
+                        System.out.println("Erro, valor inválido");
+                    }
+                    }while (!(vector1[pos] > 3000) || !(vector1[pos] < 1));
+                }*/
+            } while (!(pos > vectorSize) || !(pos < 1));
+
+        }
 
     }
 
@@ -164,4 +211,3 @@ public class TrabalhoAlgoritmos {
         TamanhoVetor();
     }
 }
-
